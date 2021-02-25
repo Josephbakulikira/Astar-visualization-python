@@ -3,20 +3,20 @@ from cell import *
 import os
 import math
 
-width, height = 1000, 1000
+width, height = 1920, 1080
 size = (width, height)
-black, white = (0, 0, 0), (255, 255, 255)
+black, white = (38, 38, 38), (251, 255, 194)
 
 pygame.init()
 screen = pygame.display.set_mode(size, pygame.FULLSCREEN)
 clock = pygame.time.Clock()
 fps = 60
 
-closedColor = (255, 0, 0)
-openColor = (0, 255, 0)
+closedColor = (22, 142, 98)
+openColor = (45, 183, 250)
 
-cols = 40
-rows = 40
+cols = 54
+rows = 96
 w = width//rows
 h = height//cols
 
@@ -31,19 +31,37 @@ for x in range(rows):
         grid[x][y].updateNeighbors(grid)
 
 startNode = grid[0][0]
+startNode.itsObstacle = False
 goalNode= grid[rows-1][cols-1]
+goalNode.itsObstacle = False
 goalNode.color = (0, 0, 255)
 openSet.append(startNode)
 
-
-def getDistance(a, b):
+# get the Heuristic distance
+def euclideanDistance(a, b):
     distance = abs((a.x - b.x ) ** 2 + (a.y - b.y) ** 2)
     return math.sqrt(distance)
+
+def manhattanDistance(a, b):
+    distance = abs((a.x - b.x) + (a.y - b.y))
+    return distance
+
+def octileDistance(a, b):
+    deltaX = abs(a.x - b.x)
+    deltaY = abs(a.y - b.y)
+    octile = 1.414 * min(deltaX, deltaY) + abs(deltaX - deltaY)
+    return octile
+
+def ChebyshevDistance(a, b):
+    distance = max(abs(a.x - b.x), abs(a.y - b.y))
+    return distance
+
 
 done = False
 run = True
 while run:
     clock.tick(fps)
+    goalNode.color = (0, 0, 255)
     screen.fill(black)
     for event in pygame.event.get():
         if event.type == pygame.QUIT:
@@ -78,7 +96,7 @@ while run:
                         checkPath = True
                         openSet.append(neighbor)
                     if checkPath:
-                        neighbor.hCost = getDistance(neighbor,goalNode)
+                        neighbor.hCost = manhattanDistance(neighbor,goalNode)
                         neighbor.fCost = neighbor.gCost + neighbor.hCost
                         neighbor.previous = currentNode
     else:
@@ -103,8 +121,8 @@ while run:
         cell.color = closedColor
 
     for cell in path:
-        cell.color = (0, 255, 255)
-    Drawline(path, w, h, screen, black)
+        cell.color = (254, 210, 1)
+    Drawline(path, w, h, screen)
     pygame.display.update()
 
 pygame.quit()

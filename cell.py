@@ -12,8 +12,8 @@ class Cell:
         self.neighbors = []
         self.color = (255, 255,255)
         self.previous = None;
-        # if random.randint(0, 10) == 1:
-        #     self.itsObstacle = True
+        if random.randint(0, 25) == 1:
+            self.itsObstacle = True
 
     def updateNeighbors(self, nodes):
         x, y = self.x, self.y
@@ -51,7 +51,7 @@ class Cell:
         else:
             pygame.draw.rect(screen, self.color, pygame.Rect(self.x * w, self.y*h, w-1, h-1))
 
-def Drawline(cells,w, h, screen, color=(255, 0, 255)):
+def Drawline(cells,w, h, screen, color=(77, 70, 145)):
     for i in range(len(cells)):
         if i + 1 < len(cells):
-            pygame.draw.line(screen, color, (int(cells[i].x * w), int(cells[i].y * h)), (int(cells[i+1].x * w), int(cells[i+1].y * h)), 10)
+            pygame.draw.line(screen, color, (int(cells[i].x * w) + w//2 , int(cells[i].y * h) + h//2), (int(cells[i+1].x * w) + w//2, int(cells[i+1].y * h) + h//2), 4)

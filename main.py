@@ -27,9 +27,9 @@ for x in range(rows):
         grid[x][y].updateNeighbors(grid)
 
 
-startNode   = grid[0][0]
+startNode   = grid[3][cols//2]
 startNode.itsObstacle = False
-goalNode    = grid[rows-1][cols-1]
+goalNode    = grid[rows-3][cols//2]
 goalNode.itsObstacle = False
 goalNode.color = (0, 0, 255)
 
@@ -228,9 +228,9 @@ while run:
                 grid[x][y].diagonal = diagonalToggle
                 grid[x][y].updateNeighbors(grid)
 
-        startNode   = grid[0][0]
+        startNode   = grid[3][cols//2]
         startNode.itsObstacle = False
-        goalNode    = grid[rows-1][cols-1]
+        goalNode    = grid[rows-3][cols//2]
         goalNode.itsObstacle = False
         goalNode.color = (0, 0, 255)
 

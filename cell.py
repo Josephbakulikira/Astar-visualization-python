@@ -59,9 +59,9 @@ class Cell:
         else:
             pygame.draw.rect(screen, self.color, pygame.Rect(self.x * w, self.y*h, w-1, h-1))
         if showText and self.fCost > 0:
-            textSurfaceFcost = textFontFcost.render(str(self.fCost), True, textColor)
-            textSurfaceGcost = textFont.render(str(self.gCost), True, textColor)
-            textSurfaceHcost = textFont.render(str(self.hCost), True, textColor)
+            textSurfaceFcost = textFontFcost.render(str(int(self.fCost)), True, textColor)
+            textSurfaceGcost = textFont.render(str(int(self.gCost)), True, textColor)
+            textSurfaceHcost = textFont.render(str(int(self.hCost)), True, textColor)
             text_rect1 = textSurfaceFcost.get_rect(center=(self.x * w + w/2, self.y * h + h/2))
             text_rect2 = textSurfaceGcost.get_rect(center=(self.x * w + w/5 , self.y * h + h/5 ))
             text_rect3 = textSurfaceHcost.get_rect(center=(self.x * w + w/1.2, self.y * h + h/1.2))

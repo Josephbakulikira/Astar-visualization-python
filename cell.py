@@ -53,7 +53,7 @@ class Cell:
         else:
             pygame.draw.rect(screen, self.color, pygame.Rect(self.x * w, self.y*h, w-1, h-1))
 
-def Drawline(cells,w, h, screen, color=(77, 70, 145)):
+def Drawline(cells,w, h, screen, color=(17, 70, 245)):
     for i in range(len(cells)):
         if i + 1 < len(cells):
-            pygame.draw.line(screen, color, (int(cells[i].x * w) + w//2 , int(cells[i].y * h) + h//2), (int(cells[i+1].x * w) + w//2, int(cells[i+1].y * h) + h//2), 4)
+            pygame.draw.line(screen, color, (int(cells[i].x * w) + w//2 , int(cells[i].y * h) + h//2), (int(cells[i+1].x * w) + w//2, int(cells[i+1].y * h) + h//2), 2)

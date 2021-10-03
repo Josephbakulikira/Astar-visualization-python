@@ -5,12 +5,13 @@ from constants import *
 from UI.setup import *
 
 pygame.init()
+pygame.font.init()
 screen = pygame.display.set_mode(size)
 clock = pygame.time.Clock()
 fps = 30
 hue = 0
 
-cell_size = 40
+cell_size = 20
 
 cols = Height//cell_size
 rows = Width//cell_size

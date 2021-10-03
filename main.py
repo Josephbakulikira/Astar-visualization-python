@@ -73,7 +73,7 @@ pause   = False
 reset   = False
 
 mouseClicked = False
-instantiateObstacles = False
+instantiateObstacles = True
 
 run     = True
 
@@ -117,7 +117,8 @@ while run:
         _x, _y = int(mx/cell_size), int(my/cell_size)
         if _x <= rows and _y <= cols:
             grid[_x][_y].itsObstacle = False
-    # algorithm
+
+    # Astar Algorithm
     if pause == False:
         if len(openSet) > 0 and done != True:
             index = 0
@@ -169,18 +170,14 @@ while run:
         cell.color = openColor
 
     for _i, cell in enumerate(closedSet):
-        # c = pygame.Color(0, 0, 0)
-        # c.hsva = (_i%360, 100, 100, 100)
-        # _color = c
-        # cell.color = _color
-        cell.color = closedColor
-
-    for _i, cell in enumerate(path):
         c = pygame.Color(0, 0, 0)
-        c.hsva = (_i+10%360, 100, 100, 100)
+        c.hsva = ((cell.x + cell.y) + 5%360, 100, 100, 100)
         _color = c
         cell.color = _color
-        #cell.color = (254, 210, 1)
+        # cell.color = closedColor
+
+    for _i, cell in enumerate(path):
+        cell.color = pathColor
     if done and showCost == False:
         Drawline(path, cell_size, cell_size, screen)
 

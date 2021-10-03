@@ -3,7 +3,7 @@ size = (Width, Height)
 
 black, white = (38, 38, 38), (251, 255, 194)
 
-closedColor = (22, 142, 98)
+pathColor = (40, 215, 80)
 openColor = (45, 183, 250)
-
+closedColor = (70, 70, 70)
 cell_size = 40

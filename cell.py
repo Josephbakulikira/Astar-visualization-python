@@ -6,6 +6,7 @@ pygame.font.init()
 textColor   = (255, 255, 255)
 # textFont    = pg.font.Font("freesansbold.ttf", size)
 textFont    = pygame.font.SysFont("Arial", cell_size//5)
+textFontFcost = pygame.font.SysFont("Arial", cell_size//3)
 class Cell:
     def __init__(self, x, y, gcost = 0, hcost = 0, fcost = 0):
         self.x = x
@@ -58,7 +59,7 @@ class Cell:
         else:
             pygame.draw.rect(screen, self.color, pygame.Rect(self.x * w, self.y*h, w-1, h-1))
         if showText and self.fCost > 0:
-            textSurfaceFcost = textFont.render(str(self.fCost), True, textColor)
+            textSurfaceFcost = textFontFcost.render(str(self.fCost), True, textColor)
             textSurfaceGcost = textFont.render(str(self.gCost), True, textColor)
             textSurfaceHcost = textFont.render(str(self.hCost), True, textColor)
             text_rect1 = textSurfaceFcost.get_rect(center=(self.x * w + w/2, self.y * h + h/2))

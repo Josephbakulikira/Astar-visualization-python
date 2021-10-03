@@ -13,8 +13,8 @@
 - **Esc**                 -> To quit (close the window)
 ---
 ### bugs- Unsolved issues
-This code need a lot of refactoring , 
-and the ui implementation is poorly done and can affect the performance
+>This code need a lot of refactoring , 
+ and the ui implementation is poorly done and can affect the performance
 ---
 ### About
         Astar algorithm in python using the pygame library, 

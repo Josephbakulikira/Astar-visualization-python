@@ -1,6 +1,5 @@
 # Astar-visualization-python
 ## Subscribe to [Auctux](https://www.youtube.com/channel/UCjPk9YDheKst1FlAf_KSpyA)
----
 ### Requirements
 > pygame : pip install pygame
 ---

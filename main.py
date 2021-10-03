@@ -11,8 +11,6 @@ clock = pygame.time.Clock()
 fps = 30
 hue = 0
 
-cell_size = 20
-
 cols = Height//cell_size
 rows = Width//cell_size
 
@@ -31,7 +29,7 @@ for x in range(rows):
 
 startNode   = grid[0][0]
 startNode.itsObstacle = False
-goalNode    = grid[rows-1][cols-1]
+goalNode    = grid[rows-2][cols-cols//2]
 goalNode.itsObstacle = False
 goalNode.color = (0, 0, 255)
 
@@ -69,11 +67,14 @@ def NegateOther(_index):
 
 
 showUI  = False
+showCost= False
 done    = False
 pause   = False
 reset   = False
+
 mouseClicked = False
 instantiateObstacles = False
+
 run     = True
 
 while run:
@@ -99,6 +100,8 @@ while run:
                 reset = True
             if event.key == pygame.K_w:
                 instantiateObstacles = not instantiateObstacles
+            if event.key == pygame.K_s:
+                showCost = not showCost
         if event.type == pygame.MOUSEBUTTONDOWN:
             if event.button == 1:
                 mouseClicked = True
@@ -152,7 +155,7 @@ while run:
 
     for x in range(rows):
         for y in range(cols):
-            grid[x][y].Display(screen, cell_size, cell_size)
+            grid[x][y].Display(screen, cell_size, cell_size, showCost)
 
     path = []
     temp = currentNode
@@ -230,7 +233,7 @@ while run:
 
         startNode   = grid[0][0]
         startNode.itsObstacle = False
-        goalNode    = grid[rows-1][cols-1]
+        goalNode    = grid[rows-2][cols-cols//2]
         goalNode.itsObstacle = False
         goalNode.color = (0, 0, 255)
 

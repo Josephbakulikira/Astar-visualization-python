@@ -1,6 +1,11 @@
 import pygame
 import random
-
+from constants import *
+pygame.init()
+pygame.font.init()
+textColor   = (255, 255, 255)
+# textFont    = pg.font.Font("freesansbold.ttf", size)
+textFont    = pygame.font.SysFont("calibri", cell_size//5)
 class Cell:
     def __init__(self, x, y, gcost = 0, hcost = 0, fcost = 0):
         self.x = x
@@ -47,11 +52,22 @@ class Cell:
                 self.neighbors.append(nodes[x - 1][y - 1])
 
 
-    def Display(self, screen, w, h):
+    def Display(self, screen, w, h, showText=False):
         if self.itsObstacle:
             pygame.draw.rect(screen, (0, 0, 0), pygame.Rect(self.x * w, self.y*h, w-1, h-1))
         else:
             pygame.draw.rect(screen, self.color, pygame.Rect(self.x * w, self.y*h, w-1, h-1))
+        if showText and self.fCost > 0:
+            textSurfaceFcost = textFont.render(str(self.fCost), True, textColor)
+            textSurfaceGcost = textFont.render(str(self.gCost), True, textColor)
+            textSurfaceHcost = textFont.render(str(self.hCost), True, textColor)
+            text_rect1 = textSurfaceFcost.get_rect(center=(self.x * w + w/2, self.y * h + h/2))
+            text_rect2 = textSurfaceGcost.get_rect(center=(self.x * w + w/5 , self.y * h + h/5 ))
+            text_rect3 = textSurfaceHcost.get_rect(center=(self.x * w + w/1.2, self.y * h + h/1.2))
+            screen.blit(textSurfaceFcost, text_rect1)
+            screen.blit(textSurfaceGcost, text_rect2)
+            screen.blit(textSurfaceHcost, text_rect3)
+
 
 def Drawline(cells,w, h, screen, color=(17, 70, 245)):
     for i in range(len(cells)):

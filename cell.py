@@ -5,7 +5,7 @@ pygame.init()
 pygame.font.init()
 textColor   = (255, 255, 255)
 # textFont    = pg.font.Font("freesansbold.ttf", size)
-textFont    = pygame.font.SysFont("calibri", cell_size//5)
+textFont    = pygame.font.SysFont("Arial", cell_size//5)
 class Cell:
     def __init__(self, x, y, gcost = 0, hcost = 0, fcost = 0):
         self.x = x

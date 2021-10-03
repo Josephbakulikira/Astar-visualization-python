@@ -29,7 +29,7 @@ for x in range(rows):
 
 startNode   = grid[0][0]
 startNode.itsObstacle = False
-goalNode    = grid[rows-2][cols-cols//2]
+goalNode    = grid[rows-1][cols-1]
 goalNode.itsObstacle = False
 goalNode.color = (0, 0, 255)
 
@@ -181,7 +181,7 @@ while run:
         _color = c
         cell.color = _color
         #cell.color = (254, 210, 1)
-    if done:
+    if done and showCost == False:
         Drawline(path, cell_size, cell_size, screen)
 
     # display ui
@@ -233,7 +233,7 @@ while run:
 
         startNode   = grid[0][0]
         startNode.itsObstacle = False
-        goalNode    = grid[rows-2][cols-cols//2]
+        goalNode    = grid[rows-1][cols-1]
         goalNode.itsObstacle = False
         goalNode.color = (0, 0, 255)
 

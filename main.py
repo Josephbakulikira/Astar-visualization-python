@@ -8,6 +8,7 @@ pygame.init()
 screen = pygame.display.set_mode(size)
 clock = pygame.time.Clock()
 fps = 30
+hue = 0
 
 cell_size = 40
 
@@ -163,11 +164,19 @@ while run:
     for cell in openSet:
         cell.color = openColor
 
-    for cell in closedSet:
+    for _i, cell in enumerate(closedSet):
+        # c = pygame.Color(0, 0, 0)
+        # c.hsva = (_i%360, 100, 100, 100)
+        # _color = c
+        # cell.color = _color
         cell.color = closedColor
 
-    for cell in path:
-        cell.color = (254, 210, 1)
+    for _i, cell in enumerate(path):
+        c = pygame.Color(0, 0, 0)
+        c.hsva = (_i+10%360, 100, 100, 100)
+        _color = c
+        cell.color = _color
+        #cell.color = (254, 210, 1)
     if done:
         Drawline(path, cell_size, cell_size, screen)
 

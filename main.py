@@ -239,7 +239,6 @@ while run:
         goalNode.itsObstacle = False
         goalNode.color = (0, 0, 255)
         goalNode.itsDestination = True
-        openSet.append(startNode)
 
         openSet.append(startNode)
         pause = True

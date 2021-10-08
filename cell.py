@@ -8,6 +8,7 @@ textColor   = (255, 255, 255)
 textFont    = pygame.font.SysFont("Arial", cell_size//5)
 textFontFcost = pygame.font.SysFont("Arial", cell_size//3)
 textFontNode = pygame.font.SysFont("Arial", cell_size//2)
+
 class Cell:
     def __init__(self, x=0, y=0, gcost = 0, hcost = 0, fcost = 0):
         self.x = x
@@ -19,7 +20,7 @@ class Cell:
         self.itsStart = False
         self.itsDestination = False
         self.neighbors = []
-        self.color = (255, 255,255)
+        self.color = white
         self.previous = None
         self.diagonal = False
         # if random.randint(0, 25) == 1:
@@ -58,11 +59,11 @@ class Cell:
 
     def Display(self, screen, w, h, _s, showText=False):
         if self.itsObstacle:
-            pygame.draw.rect(screen, (0, 0, 0), pygame.Rect(self.x * w, self.y*h, _s-1, _s-1))
+            pygame.draw.rect(screen, black, pygame.Rect(self.x * w, self.y*h, _s-cell_offset, _s-cell_offset))
         elif self.itsStart:
-            pygame.draw.rect(screen, startColor, pygame.Rect(self.x * w, self.y*h, _s-1, _s-1))
+            pygame.draw.rect(screen, startColor, pygame.Rect(self.x * w, self.y*h, _s-cell_offset, _s-cell_offset))
         else:
-            pygame.draw.rect(screen, self.color, pygame.Rect(self.x * w, self.y*h, _s-1, _s-1))
+            pygame.draw.rect(screen, self.color, pygame.Rect(self.x * w, self.y*h, _s-cell_offset, _s-cell_offset))
 
         if showText == True and self.fCost > 0 and self.itsStart == False and self.itsDestination == False:
             textSurfaceFcost = textFontFcost.render(str(int(self.fCost)), True, textColor)

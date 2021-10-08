@@ -7,14 +7,17 @@ textColor   = (255, 255, 255)
 # textFont    = pg.font.Font("freesansbold.ttf", size)
 textFont    = pygame.font.SysFont("Arial", cell_size//5)
 textFontFcost = pygame.font.SysFont("Arial", cell_size//3)
+textFontNode = pygame.font.SysFont("Arial", cell_size//2)
 class Cell:
-    def __init__(self, x, y, gcost = 0, hcost = 0, fcost = 0):
+    def __init__(self, x=0, y=0, gcost = 0, hcost = 0, fcost = 0):
         self.x = x
         self.y = y
         self.gCost = gcost
         self.hCost = hcost
         self.fCost = fcost
         self.itsObstacle = False
+        self.itsStart = False
+        self.itsDestination = False
         self.neighbors = []
         self.color = (255, 255,255)
         self.previous = None
@@ -53,12 +56,15 @@ class Cell:
                 self.neighbors.append(nodes[x - 1][y - 1])
 
 
-    def Display(self, screen, w, h, showText=False):
+    def Display(self, screen, w, h, _s, showText=False):
         if self.itsObstacle:
-            pygame.draw.rect(screen, (0, 0, 0), pygame.Rect(self.x * w, self.y*h, w-1, h-1))
+            pygame.draw.rect(screen, (0, 0, 0), pygame.Rect(self.x * w, self.y*h, _s-1, _s-1))
+        elif self.itsStart:
+            pygame.draw.rect(screen, startColor, pygame.Rect(self.x * w, self.y*h, _s-1, _s-1))
         else:
-            pygame.draw.rect(screen, self.color, pygame.Rect(self.x * w, self.y*h, w-1, h-1))
-        if showText and self.fCost > 0:
+            pygame.draw.rect(screen, self.color, pygame.Rect(self.x * w, self.y*h, _s-1, _s-1))
+
+        if showText == True and self.fCost > 0 and self.itsStart == False and self.itsDestination == False:
             textSurfaceFcost = textFontFcost.render(str(int(self.fCost)), True, textColor)
             textSurfaceGcost = textFont.render(str(int(self.gCost)), True, textColor)
             textSurfaceHcost = textFont.render(str(int(self.hCost)), True, textColor)
@@ -68,7 +74,14 @@ class Cell:
             screen.blit(textSurfaceFcost, text_rect1)
             screen.blit(textSurfaceGcost, text_rect2)
             screen.blit(textSurfaceHcost, text_rect3)
-
+        elif showText == True and self.itsStart == True:
+            textSurfaceStart = textFontNode.render("A", True, textColor)
+            text_rect = textSurfaceStart.get_rect(center=(self.x * w + w/2, self.y * h + h/2))
+            screen.blit(textSurfaceStart, text_rect)
+        elif showText == True and self.itsDestination == True:
+            textSurfaceDest = textFontNode.render("B", True, textColor)
+            text_rect = textSurfaceDest.get_rect(center=(self.x * w + w/2, self.y * h + h/2))
+            screen.blit(textSurfaceDest, text_rect)
 
 def Drawline(cells,w, h, screen, color=(17, 70, 245)):
     for i in range(len(cells)):

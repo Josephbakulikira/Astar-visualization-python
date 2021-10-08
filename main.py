@@ -29,10 +29,11 @@ for x in range(rows):
 
 startNode   = grid[3][cols//2]
 startNode.itsObstacle = False
+startNode.itsStart = True
 goalNode    = grid[rows-3][cols//2]
 goalNode.itsObstacle = False
 goalNode.color = (0, 0, 255)
-
+goalNode.itsDestination = True
 openSet.append(startNode)
 
 # get the Heuristic distance
@@ -65,11 +66,14 @@ def NegateOther(_index):
             distBooleans[i] = False
             toggles[i].state = False
 
+_cellSize = 5
+
+currentNode = Cell()
 
 showUI  = False
 showCost= False
 done    = False
-pause   = False
+pause   = True
 reset   = False
 
 mouseClicked = False
@@ -156,7 +160,7 @@ while run:
 
     for x in range(rows):
         for y in range(cols):
-            grid[x][y].Display(screen, cell_size, cell_size, showCost)
+            grid[x][y].Display(screen, cell_size, cell_size,_cellSize, showCost)
 
     path = []
     temp = currentNode
@@ -230,9 +234,12 @@ while run:
 
         startNode   = grid[3][cols//2]
         startNode.itsObstacle = False
+        startNode.itsStart = True
         goalNode    = grid[rows-3][cols//2]
         goalNode.itsObstacle = False
         goalNode.color = (0, 0, 255)
+        goalNode.itsDestination = True
+        openSet.append(startNode)
 
         openSet.append(startNode)
         pause = True
@@ -241,4 +248,7 @@ while run:
         ResetButton.state = False
     pygame.display.flip()
 
+    if _cellSize >= cell_size:
+        _cellSize = cell_size-1
+    _cellSize += 1
 pygame.quit()

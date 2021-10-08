@@ -4,9 +4,10 @@
 > pygame : pip install pygame
 ---
 ### Run
-    run the terminal 
-    python main.py
-    Press "Space" To start The simulation
+    In The terminal:
+        python main.py
+        
+    - Press "Space" To start The simulation
 ---
 ### Controls (Commands)
 - **S**                   -> To show node details(costs) text

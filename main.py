@@ -133,7 +133,7 @@ while run:
                 # check the neighbor nodes
                 for neighbor in neighbors:
                     if neighbor not in closedSet and neighbor.itsObstacle == False:
-                        cost = currentNode.gCost + Heuristic[currentIndex](neighbor, currentNode)
+                        cost = currentNode.gCost + Heuristic[currentIndex](neighbor, currentNode, diagonalToggle)
                         checkPath = False
                         # check if it's better than the routes before
                         if neighbor not in openSet:

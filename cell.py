@@ -58,6 +58,7 @@ class Cell:
                 self.neighbors.append(nodes[x - 1][y - 1])
 
         return self.neighbors
+        
     def Display(self, screen, w, h, _s, showText=False):
         if self.itsObstacle:
             pygame.draw.rect(screen, black, pygame.Rect(self.x * w, self.y*h, _s-cell_offset, _s-cell_offset))

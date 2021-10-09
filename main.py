@@ -12,8 +12,6 @@ clock = pygame.time.Clock()
 fps = 30
 hue = 0
 
-
-
 grid = [[Cell(j, i) for i in range(cols)] for j in range(rows)]
 path = []
 
@@ -64,6 +62,8 @@ run     = True
 
 while run:
     clock.tick(fps)
+    frameRate = int(clock.get_fps())
+    pygame.display.set_caption("A* Algorithm - FPS:{}".format(frameRate))
     goalNode.color = (0, 0, 255)
     screen.fill(black)
     mouseClicked = False
@@ -93,12 +93,12 @@ while run:
         if instantiateObstacles == True:
             mx, my = pygame.mouse.get_pos()
             _x, _y = int(mx/cell_size), int(my/cell_size)
-            if _x <= rows and _y <= cols:
+            if _x < rows and _y < cols:
                 grid[_x][_y].itsObstacle = True
     elif pygame.mouse.get_pressed()[2]:
         mx, my = pygame.mouse.get_pos()
         _x, _y = int(mx/cell_size), int(my/cell_size)
-        if _x <= rows and _y <= cols:
+        if _x < len(grid)  and _y < len(grid[x]):
             grid[_x][_y].itsObstacle = False
 
     # Astar Algorithm

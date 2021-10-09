@@ -61,6 +61,7 @@ reset   = False
 
 mouseClicked = False
 instantiateObstacles = True
+currentIndex = distBooleans.index(True)
 
 run     = True
 
@@ -69,8 +70,6 @@ while run:
     goalNode.color = (0, 0, 255)
     screen.fill(black)
     mouseClicked = False
-
-    currentIndex = distBooleans.index(True)
 
     # Handle Events
     for event in pygame.event.get():
@@ -108,10 +107,8 @@ while run:
     # Astar Algorithm
     if pause == False:
         if len(openSet) > 0 and done != True:
-            index = 0
             if done == False and len(openSet) > 0:
                 winner = 0
-
                 for i in range(len(openSet)):
                     # set the Winner as the one with the least f Cost
                     if openSet[i].fCost < openSet[winner].fCost:
@@ -134,8 +131,10 @@ while run:
                 openSet.remove(currentNode)
                 closedSet.append(currentNode)
 
+                neighbors = currentNode.updateNeighbors(grid)
+                # neighbors = currentNode.neighbors
                 # check the neighbor nodes
-                for neighbor in currentNode.neighbors:
+                for neighbor in neighbors:
                     if neighbor not in closedSet and neighbor.itsObstacle == False:
                         cost = currentNode.gCost + Heuristic[currentIndex](neighbor, currentNode)
                         checkPath = False
@@ -146,13 +145,14 @@ while run:
                             continue
 
                         neighbor.gCost = cost
-                        neighbor.hCost = Heuristic[currentIndex](neighbor, goalNode)
+                        neighbor.hCost = Heuristic[currentIndex](neighbor, goalNode, diagonalToggle)
 
                         if diagonalToggle == False:
-                            neighbor.euclidDist = SimpleDistance(neighbor, goalNode)
+                            neighbor.euclidDist = Heuristic[currentIndex](neighbor, goalNode, diagonalToggle)
 
                         neighbor.fCost = neighbor.gCost + neighbor.hCost
                         neighbor.previous = currentNode
+                        neighbor.previous.color = (80, 80, 200)
 
     for x in range(rows):
         for y in range(cols):
@@ -201,6 +201,7 @@ while run:
         for i in range(len(distBooleans)):
             if distBooleans[i] == True and i != currentIndex:
                 NegateOther(i)
+        currentIndex = distBooleans.index(True)
 
         ResetButton.Render(screen, mouseClicked)
         PauseButton.Render(screen, mouseClicked)

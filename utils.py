@@ -7,12 +7,14 @@ def euclideanDistance(a, b, diagonalCheck=False):
 
 def SimpleDistance(a, b):
     return (a.x - b.x )*(a.x - b.x ) + (a.y - b.y)*(a.y - b.y)
+
 def manhattanDistance(a, b, diagonalCheck=False):
     distX = abs(a.x - b.x)
     distY = abs(a.y - b.y)
-    if diagonalCheck == True:
-        return SimpleDistance(a, b)
-    # dist = abs(a.x - b.x) + abs(a.y-b.y)
+    # if diagonalCheck == True:
+    #     if AreDiagonal(a, b):
+    #         return SimpleDistance(a, b)
+
     return distX + distY
 
 def octileDistance(a, b, diagonalCheck=False):

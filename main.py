@@ -3,6 +3,7 @@ from cell import *
 import math
 from constants import *
 from UI.setup import *
+from utils import *
 
 pygame.init()
 pygame.font.init()
@@ -11,8 +12,7 @@ clock = pygame.time.Clock()
 fps = 30
 hue = 0
 
-cols = Height//cell_size
-rows = Width//cell_size
+
 
 grid = [[Cell(j, i) for i in range(cols)] for j in range(rows)]
 path = []
@@ -36,24 +36,7 @@ goalNode.color = (0, 0, 255)
 goalNode.itsDestination = True
 openSet.append(startNode)
 
-# get the Heuristic distance
-def euclideanDistance(a, b):
-    dist = (a.x - b.x )*(a.x - b.x ) + (a.y - b.y)*(a.y - b.y)
-    return math.sqrt(dist)
 
-def manhattanDistance(a, b):
-    dist = abs(a.x - b.x) + abs(a.y-b.y)
-    return dist
-
-def octileDistance(a, b):
-    deltaX = abs(a.x - b.x)
-    deltaY = abs(a.y - b.y)
-    octile = 1.414 * min(deltaX, deltaY) + abs(deltaX - deltaY)
-    return octile
-
-def ChebyshevDistance(a, b):
-    dist = max(abs(a.x - b.x), abs(a.y - b.y))
-    return dist
 
 
 toggles = [EuclideanDistanceToggle, ManhattanDistanceToggle, OctileDistanceToggle, ChebyshevDistanceToggle]
@@ -126,37 +109,50 @@ while run:
     if pause == False:
         if len(openSet) > 0 and done != True:
             index = 0
-            # find the current node
-            for i in range(len(openSet)):
-                if int(openSet[i].fCost) < int(openSet[index].fCost):
-                    index = i
-            currentNode = openSet[index]
-            # check if it's done
-            if currentNode == goalNode:
-                done = True
+            if done == False and len(openSet) > 0:
+                winner = 0
 
-            # add current node to closedSet and remove it from openset
-            if done == False:
+                for i in range(len(openSet)):
+                    # set the Winner as the one with the least f Cost
+                    if openSet[i].fCost < openSet[winner].fCost:
+                        winner = i
+                    # In case of a Tie of fCost
+                    if openSet[i].fCost == openSet[winner].fCost:
+                        # compare the gcost
+                        if openSet[i].gCost > openSet[winner].gCost:
+                            winner = i
+                    if diagonalToggle == False:
+                        if openSet[i].gCost == openSet[winner].gCost and openSet[i].euclidDist == openSet[winner].euclidDist:
+                            winner = i
+                currentNode = openSet[winner]
+                previousNode = currentNode
+
+                # check if we're done
+                if currentNode == goalNode:
+                    done = True
+                # remove currentNode from openset
+                openSet.remove(currentNode)
                 closedSet.append(currentNode)
-                if currentNode in openSet:
-                    openSet.remove(currentNode)
+
                 # check the neighbor nodes
                 for neighbor in currentNode.neighbors:
                     if neighbor not in closedSet and neighbor.itsObstacle == False:
-                        cost = currentNode.gCost + 1
+                        cost = currentNode.gCost + Heuristic[currentIndex](neighbor, currentNode)
                         checkPath = False
-                        if neighbor in openSet:
-                            if cost < neighbor.gCost:
-                                neighbor.gCost = cost
-                                checkPath = True
-                        else:
-                            neighbor.gCost = cost
-                            checkPath = True
+                        # check if it's better than the routes before
+                        if neighbor not in openSet:
                             openSet.append(neighbor)
-                        if checkPath:
-                            neighbor.hCost = Heuristic[currentIndex](neighbor,goalNode)
-                            neighbor.fCost = neighbor.gCost + neighbor.hCost
-                            neighbor.previous = currentNode
+                        elif cost >= neighbor.gCost:
+                            continue
+
+                        neighbor.gCost = cost
+                        neighbor.hCost = Heuristic[currentIndex](neighbor, goalNode)
+
+                        if diagonalToggle == False:
+                            neighbor.euclidDist = SimpleDistance(neighbor, goalNode)
+
+                        neighbor.fCost = neighbor.gCost + neighbor.hCost
+                        neighbor.previous = currentNode
 
     for x in range(rows):
         for y in range(cols):

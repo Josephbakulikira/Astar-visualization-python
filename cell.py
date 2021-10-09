@@ -23,6 +23,7 @@ class Cell:
         self.color = white
         self.previous = None
         self.diagonal = False
+        self.euclidDist = 0
         # if random.randint(0, 25) == 1:
         #     self.itsObstacle = True
 

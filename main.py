@@ -36,9 +36,6 @@ goalNode.color = (0, 0, 255)
 goalNode.itsDestination = True
 openSet.append(startNode)
 
-
-
-
 toggles = [EuclideanDistanceToggle, ManhattanDistanceToggle, OctileDistanceToggle, ChebyshevDistanceToggle]
 Heuristic = [euclideanDistance, manhattanDistance, octileDistance, ChebyshevDistance]
 distBooleans = [False, True, False, False]
@@ -62,7 +59,7 @@ reset   = False
 mouseClicked = False
 instantiateObstacles = True
 currentIndex = distBooleans.index(True)
-
+diagonalToggleButton = diagonalToggle
 run     = True
 
 while run:
@@ -191,8 +188,10 @@ while run:
         octileDistanceText.Render(screen)
         ChebyshevDistanceText.Render(screen)
 
-        diagonalToggle = DiagonalToggle.Render(screen, mouseClicked)
-
+        diagonalToggleButton = DiagonalToggle.Render(screen, mouseClicked)
+        if diagonalToggleButton != diagonalToggle:
+            reset = True
+            diagonalToggle = diagonalToggleButton
         distBooleans[0] = EuclideanDistanceToggle.Render(screen, mouseClicked)
         distBooleans[1] = ManhattanDistanceToggle.Render(screen, mouseClicked)
         distBooleans[2] = OctileDistanceToggle.Render(screen, mouseClicked)

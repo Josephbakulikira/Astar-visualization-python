@@ -10,14 +10,14 @@
     - Press "Space" To start The simulation
 ---
 ### Controls (Commands)
-- **S**                   -> To show node details(costs) text
-- **W**                   -> To Toggle Drawing walls
-- **Left Mouse Button**   -> To Remove Walls
-- **Right Mouse Button**  -> To Add Walls
-- **Space**               -> To pause and Resume
-- **R**                   -> To reset
-- **Enter(Return) or P**  -> To toggle setting Panel
-- **Esc**                 -> To quit (close the window)
+- `S`                   -> To show node details(costs) text
+- `W`                   -> To Toggle Drawing walls
+- `Left Mouse Button`   -> To Remove Walls
+- `Right Mouse Button`  -> To Add Walls
+- `Space`              -> To pause and Resume
+- `R`                   -> To reset
+- `Enter(Return)` or `P`  -> To toggle setting Panel
+- `Esc`                 -> To quit (close the window)
 ---
 ### bugs- Unsolved issues
 >This code need a lot of refactoring , 
